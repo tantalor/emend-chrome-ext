@@ -39,7 +39,10 @@
       // grab this tab's edits
       var edits = oEdits[tab.id];
       if (edits && edits.length) {
-        console.log(edits);
+        chrome.tabs.executeScript(tab.idtabId, {file: "content.js"}, function () {
+          chrome.tabs.sendRequest(tab.id, {edits: edits}, function(response) {
+          });
+        })
       }
     });
   });

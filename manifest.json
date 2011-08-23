@@ -8,6 +8,7 @@
   },
   "permissions" : [
     "tabs",
+    "http://*/*",
     "http://www.emendapp.com/"
   ]
 }
