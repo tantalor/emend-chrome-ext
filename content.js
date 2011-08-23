@@ -1,5 +1,9 @@
-// courtesy Tim Down
+// Copyright 2010 Tim Down <tim@timdown.co.uk>
+// Licensed by Creative Common Attribution-ShareAlike 2.0 Generic
+// http://creativecommons.org/licenses/by-sa/2.0/
+// Originally published on Stack Overflow
 // http://stackoverflow.com/questions/4489119/jquery-javascript-search-dom-for-text-and-insert-html
+// http://stackoverflow.com/users/96100/tim-down
 function replaceText(node, text, replacementNodeTemplate) {
   if (node.nodeType == 3) {
     while (node) {
