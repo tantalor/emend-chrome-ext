@@ -2,15 +2,10 @@
 <script src="https://www.google.com/jsapi?key=ABQIAAAA-97Boj3wwvyphU1yUT9MPhR5tFyiaSwvaU5WsFBkGPSt-xPcDRSCG-ClJVTsaTCyGb8dd4TZPbclbg" type="text/javascript"></script>
 
 <script>
-  var oEdits = new Object(); // {tabId: [edits]}
-  
   google.load("jquery", "1.6.2");
   google.setOnLoadCallback(function () {
-    
-    // when a tab opens
     chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
       if (changeInfo.status == "complete") {
-        if (oEdits[tab.url]) return;
         // lookup this tab's edits
         var url_sha1 = hex_sha1(tab.url);
         jQuery.getJSON(
@@ -18,31 +13,12 @@
           {q:"url_sha1:"+url_sha1},
           function (res) {
             if (res.edits.length) {
-              // save this tab's edits
-              oEdits[tabId] = res.edits;
-              // show this tab's page action
-              chrome.pageAction.show(tab.id);
+              chrome.tabs.executeScript(tabId, {file: "content.js"}, function () {
+                chrome.tabs.sendRequest(tabId, res, function () {});
+		          });
             }
           }
-        )
-      }
-    });
-    
-    // when a tab closes
-    chrome.tabs.onRemoved.addListener(function(tabId, removeInfo) {
-      // forget this tab's edits
-      delete oEdits[tabId];
-    });
-    
-    // when a tab's page action is clicked
-    chrome.pageAction.onClicked.addListener(function(tab) {
-      // grab this tab's edits
-      var edits = oEdits[tab.id];
-      if (edits && edits.length) {
-        chrome.tabs.executeScript(tab.idtabId, {file: "content.js"}, function () {
-          chrome.tabs.sendRequest(tab.id, {edits: edits}, function(response) {
-          });
-        })
+        );
       }
     });
   });

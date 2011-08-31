@@ -3,9 +3,6 @@
   "version": "1.0",
   "description": "Make the Web a little better",
   "background_page": "background.html",
-  "page_action": {
-    "default_icon": "icon16.png"
-  },
   "icons": {
     "16": "icon16.png",
     "48": "icon48.png",

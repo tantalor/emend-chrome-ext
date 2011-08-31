@@ -40,8 +40,6 @@ chrome.extension.onRequest.addListener(function (request, sender, sendResponse) 
     for (var i = 0; i < edits.length; i++) {
       var edit = edits[i];
       var span = document.createElement("span");
-      span.style.color = "red";
-      span.style.fontWeight = "bold";
       span.title = edit.original;
       span.appendChild(document.createTextNode(edit.proposal));
       replaceText(document.body, edit.original, span);
