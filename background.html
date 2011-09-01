@@ -7,7 +7,7 @@
     chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
       if (changeInfo.status == "complete") {
         // lookup this tab's edits
-        var url_sha1 = hex_sha1(tab.url);
+        var url_sha1 = hex_sha1(tab.url.replace(/#.*/, ''));
         jQuery.getJSON(
           "http://www.emendapp.com/search/edits.json",
           {q:"url_sha1:"+url_sha1},
