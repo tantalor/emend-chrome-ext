@@ -1,6 +1,6 @@
 {
   "name": "Emend Extension",
-  "version": "1.2",
+  "version": "1.2.1",
   "description": "Make the Web a little better",
   "background_page": "background.html",
   "page_action": {
