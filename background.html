@@ -4,6 +4,7 @@
 <script>
   google.load("jquery", "1.6.2");
   google.setOnLoadCallback(function () {
+    // on tab load
     chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
       if (changeInfo.status == "complete") {
         // lookup this tab's edits
@@ -15,11 +16,20 @@
             if (res.edits.length) {
               chrome.tabs.executeScript(tabId, {file: "content.js"}, function () {
                 chrome.tabs.sendRequest(tabId, res, function () {});
-		          });
+                chrome.pageAction.show(tabId);
+              });
             }
           }
         );
       }
+    });
+    
+    // on clicked
+    chrome.pageAction.onClicked.addListener(function (tab) {
+      var url_sha1 = hex_sha1(tab.url.replace(/#.*/, ''));
+      chrome.tabs.create({
+        url: "http://www.emendapp.com/search/edits?q=url_sha1:"+url_sha1
+      });
     });
   });
 </script>
