@@ -31,5 +31,17 @@
         url: "http://www.emendapp.com/search/edits?status=open&q=url_sha1:"+url_sha1
       });
     });
+    
+    // context menu
+    chrome.contextMenus.create({
+      title: "Emend",
+      contexts: ["selection"],
+      onclick: function (info, tab) {
+        var url = info.pageUrl.replace(/#.*/, '');
+        chrome.tabs.create({
+          url: "http://www.emendapp.com/?url="+encodeURIComponent(url)+"&original="+encodeURIComponent(info.selectionText)
+        });
+      }
+    });
   });
 </script>
