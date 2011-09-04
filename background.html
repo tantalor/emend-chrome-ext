@@ -11,7 +11,7 @@
         var url_sha1 = hex_sha1(tab.url.replace(/#.*/, ''));
         jQuery.getJSON(
           "http://www.emendapp.com/search/edits.json",
-          {q:"url_sha1:"+url_sha1, status:"open"},
+          {url_sha1:url_sha1, status:"open"},
           function (res) {
             if (res.edits.length) {
               chrome.tabs.executeScript(tabId, {file: "content.js"}, function () {
@@ -28,7 +28,7 @@
     chrome.pageAction.onClicked.addListener(function (tab) {
       var url_sha1 = hex_sha1(tab.url.replace(/#.*/, ''));
       chrome.tabs.create({
-        url: "http://www.emendapp.com/search/edits?status=open&q=url_sha1:"+url_sha1
+        url: "http://www.emendapp.com/search/edits?status=open&url_sha1="+url_sha1
       });
     });
     
